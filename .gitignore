@@ -37,3 +37,10 @@ data/*.csv
 !artifacts/logs/.gitkeep
 !artifacts/plots/.gitkeep
 !data/.gitkeep
+
+# Expose sample artifacts for demonstration
+!artifacts/models/dummy_model/
+!artifacts/models/dummy_model/**
+!artifacts/models/latest/
+!artifacts/models/latest/**
+!*.pt

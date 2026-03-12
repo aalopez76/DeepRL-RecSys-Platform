@@ -8,6 +8,16 @@ import pandas as pd
 import json
 from pathlib import Path
 import streamlit as st
+import numpy as np
+
+def compute_ess(weights: List[float]) -> float:
+    """Computes the Effective Sample Size (ESS) using the formula: (sum(w))^2 / sum(w^2)"""
+    if not weights:
+        return 0.0
+    w_arr = np.array(weights)
+    sum_w = np.sum(w_arr)
+    sum_w2 = np.sum(w_arr ** 2)
+    return float(sum_w ** 2 / sum_w2) if sum_w2 > 0 else 0.0
 
 @st.cache_data(ttl=60)
 def scan_artifacts(base_dir: str | Path) -> pd.DataFrame:
@@ -49,7 +59,7 @@ def scan_artifacts(base_dir: str | Path) -> pd.DataFrame:
     df = pd.DataFrame(records)
     # Sort by created_at descending if possible
     if "created_at" in df.columns:
-        df["created_at"] = pd.to_datetime(df["created_at"], errors="ignore")
+        df["created_at"] = pd.to_datetime(df["created_at"], errors="coerce", utc=True).dt.tz_localize(None)
         df = df.sort_values(by="created_at", ascending=False)
     return df
 
@@ -64,7 +74,15 @@ def load_ope_report(artifact_path: str) -> Dict[str, Any]:
         return json.load(f)
 
 def _load_train_log_inner(log_path: Path) -> pd.DataFrame:
-    """Helper to parse a jsonl file into a DataFrame."""
+    """Helper to parse a jsonl or json file into a DataFrame."""
+    try:
+        with open(log_path, "r") as f:
+            data = json.load(f)
+            if isinstance(data, dict) and "metrics" in data:
+                return pd.DataFrame(data["metrics"])
+    except json.JSONDecodeError:
+        pass
+        
     records = []
     with open(log_path, "r") as f:
         for line in f:

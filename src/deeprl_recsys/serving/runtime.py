@@ -53,6 +53,7 @@ class ServingRuntime:
 
         adir = self.artifact_dir.resolve()
         logger.info("runtime_load_start", artifact_dir=str(adir))
+        print(f"LOADING ARTIFACT: {adir.absolute()}")
 
         # Load metadata
         meta_path = adir / "metadata.json"
@@ -62,13 +63,33 @@ class ServingRuntime:
             self.metadata = {}
             logger.warning("metadata_missing", path=str(meta_path))
 
-        # Config fingerprint
+        # Config fingerprint and object
         config_path = adir / "config.yaml"
+        self.config: dict[str, Any] = {}
         if config_path.exists():
             config_hash = hashlib.sha256(
                 config_path.read_bytes()
             ).hexdigest()[:12]
             self.metadata["config_fingerprint"] = config_hash
+            import yaml
+            with config_path.open("r", encoding="utf-8") as fh:
+                self.config = yaml.safe_load(fh) or {}
+
+        # Instantiate agent
+        agent_name = self.metadata.get("agent_name", "")
+        self.agent = None
+        if agent_name:
+            from deeprl_recsys.core.registry import create
+            import copy
+            agent_hp = self.config.get("agent", {}).get("hyperparams", {})
+            try:
+                self.agent = create("agents", agent_name, **copy.deepcopy(agent_hp))
+                model_pt = adir / "model.pt"
+                if model_pt.exists():
+                    self.agent.load(str(model_pt))
+                    logger.info("runtime_agent_loaded", model="model.pt")
+            except Exception as e:
+                logger.error("runtime_agent_init_failed", error=str(e))
 
         self._loaded = True
         logger.info(
@@ -97,5 +118,25 @@ class ServingRuntime:
         Returns:
             List of ``{"item_id": int, "score": float}`` dicts.
         """
-        # Fallback: return first k candidates (no model loaded)
-        return [{"item_id": c, "score": 0.0} for c in candidates[:k]]
+        if not getattr(self, "agent", None):
+            return [{"item_id": c, "score": 0.0} for c in candidates[:k]]
+
+        probs = self.agent.get_action_probabilities(context, candidates)
+        print(f"RAW PREDICT SCORES (ServingRuntime): {probs}")
+        
+        # Max-min scale / Normalization for visibility
+        max_p = max(probs.values()) if probs else 0.0
+        min_p = min(probs.values()) if probs else 0.0
+        
+        normalized: dict[int, float] = {}
+        if max_p > min_p:
+            for c, p in probs.items():
+                normalized[c] = (p - min_p) / (max_p - min_p)
+        elif max_p > 0:
+            for c, p in probs.items():
+                normalized[c] = p / max_p
+        else:
+            normalized = probs
+            
+        sorted_candidates = sorted(normalized.keys(), key=lambda c: normalized[c], reverse=True)[:k]
+        return [{"item_id": c, "score": float(normalized[c])} for c in sorted_candidates]

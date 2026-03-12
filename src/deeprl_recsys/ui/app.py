@@ -1,3 +1,4 @@
+import streamlit as st
 from pathlib import Path
 import json
 import pandas as pd
@@ -18,6 +19,7 @@ from deeprl_recsys.ui.utils import (
     load_ope_report,
     load_train_log,
     check_reports_extra,
+    compute_ess,
 )
 
 BASE_ARTIFACTS_DIR = Path("artifacts/models")
@@ -76,7 +78,14 @@ def ope_view():
     for w in verdict.get("warnings", []):
         st.write(f"- {w}")
         
-    st.markdown("### Estimadores")
+    st.markdown("### Estimadores & Diagnósticos")
+    
+    # Compute and display ESS
+    weights = report_data.get("importance_weights", [])
+    if weights:
+        ess_val = compute_ess(weights)
+        st.metric(label="Effective Sample Size (ESS)", value=f"{ess_val:.2f}")
+    
     estimates = report_data.get("estimates", {})
     if estimates:
         df_est = pd.DataFrame(list(estimates.items()), columns=["Estimator", "Value"])
@@ -166,8 +175,14 @@ def playground_view():
         
     artifact_opts = df_artifacts["artifact_id"].tolist()
     selected_id = st.selectbox("Seleccionar Artefacto", artifact_opts, key="play_sel")
+    
+    if not selected_id:
+        st.warning("Selecciona un artefacto para continuar.")
+        return
+        
     selected_row = df_artifacts[df_artifacts["artifact_id"] == selected_id].iloc[0]
     schema_ver = selected_row["schema_version"]
+    selected_path = selected_row["path"]
 
     st.markdown(f"**Schema Version:** `{schema_ver}`")
 
@@ -191,14 +206,16 @@ def playground_view():
 
     if st.button("Recomendar", disabled=not is_valid_json):
         with st.spinner("Generando recomendación..."):
-            # Mock de recomendación por ahora, en la vida real se usa ServingRuntime
-            import time
-            time.sleep(0.5)
+            from deeprl_recsys.serving.runtime import ServingRuntime
+            runtime = ServingRuntime()
+            runtime.load(selected_path)
             
-            # Simulated dummy response
+            candidates = [10, 25, 33, 41, 55]
+            preds = runtime.predict(context_data, candidates, k=5)
+            
             dummy_results = pd.DataFrame({
-                "Item ID": [10, 25, 33, 41, 55],
-                "Score": [0.95, 0.88, 0.74, 0.65, 0.50]
+                "Item ID": [p["item_id"] for p in preds],
+                "Score": [p["score"] for p in preds]
             })
             
             st.success("Recomendación lista")

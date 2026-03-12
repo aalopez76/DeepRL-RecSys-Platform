@@ -1,0 +1,26 @@
+# sac_verification.yaml
+# Optimized SAC config for bandit_v1 schema testing
+
+seed: 42
+
+agent:
+  name: "sac"
+  hyperparams:
+    learning_rate: 0.0003
+    gamma: 0.99
+    alpha: 0.5           # Entropy temperature
+    tau: 0.005           # Soft update coefficient
+    batch_size: 128
+    buffer_size: 50000
+    hidden_dims: [128, 128]
+
+dataset:
+  path: "data/movielens/" # Assume this exists from previous steps, or we will use a synthetic fallback if platform generates it
+  format: "csv"
+  schema_version: "bandit_v1"
+  propensity_policy: "mark_unreliable"
+
+training:
+  max_steps: 1000        # Short run for verification
+  eval_interval: 200
+  checkpoint_interval: 500
