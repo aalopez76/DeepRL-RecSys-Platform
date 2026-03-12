@@ -1,0 +1,10 @@
+# RL4RS Dataset Configuration
+path: "data/rl4rs/"
+format: "parquet"
+schema_version: "sequential_v1"
+propensity_policy: "block_ope"
+splits:
+  strategy: "temporal"
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15

@@ -1,0 +1,6 @@
+# Static Simulator Parameters
+type: "static"
+reward_model: "fixed_table"
+params:
+  click_prob: 0.05
+  noise_std: 0.01

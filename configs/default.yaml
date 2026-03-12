@@ -1,0 +1,40 @@
+# ── DeepRL-RecSys-Platform — Global Defaults ──────────
+# This file defines baseline values. Experiment configs inherit and override.
+
+seed: 42
+
+paths:
+  data_dir: "data/"
+  artifact_dir: "artifacts/"
+  log_dir: "artifacts/logs/"
+  plot_dir: "artifacts/plots/"
+
+logging:
+  level: "INFO"
+  format: "json"
+
+dataset:
+  schema_version: "bandit_v1"
+  propensity_policy: "mark_unreliable"   # "mark_unreliable" | "block_ope"
+
+agent:
+  name: "random"
+  hyperparams: {}
+
+training:
+  max_steps: 1000
+  eval_interval: 100
+  checkpoint_interval: 500
+
+ope:
+  estimator: "ips"
+  clip_epsilon: 0.01
+  fail_on_severity: "error"   # "error" | "warning" | "none"
+
+serving:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+  auth_enabled: false
+  rate_limit_rpm: 60
+  cors_origins: ["*"]

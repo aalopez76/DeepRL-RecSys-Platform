@@ -1,0 +1,6 @@
+# Recommendation Environment Configuration
+type: "rec_env"
+action_space_size: 100
+observation_dims: 64
+max_steps_per_episode: 50
+reward_shaping: false

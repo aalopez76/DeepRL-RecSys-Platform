@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>deeprl_recsys.core.schema &mdash; DeepRL-RecSys-Platform 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            DeepRL-RecSys-Platform
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DeepRL-RecSys-Platform</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">deeprl_recsys.core.schema</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for deeprl_recsys.core.schema</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Versioned dataset schemas — ``bandit_v1``, ``sequential_v1``.</span>
+
+<span class="sd">Defines :class:`SchemaSpec` as a frozen declarative specification and</span>
+<span class="sd">provides :func:`get_schema` for version-based lookup.  These schemas are</span>
+<span class="sd">the **single source of truth** consumed by :mod:`data_pipeline.validation`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">deeprl_recsys.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">SchemaError</span>
+
+
+<div class="viewcode-block" id="SchemaSpec">
+<a class="viewcode-back" href="../../../api/index.html#deeprl_recsys.core.schema.SchemaSpec">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SchemaSpec</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Declarative schema specification for a dataset version.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        schema_version: Unique version identifier (e.g. ``&quot;bandit_v1&quot;``).</span>
+<span class="sd">        required_columns: Mapping of ``column_name → dtype_kind``</span>
+<span class="sd">            where *dtype_kind* is the single-char NumPy dtype kind</span>
+<span class="sd">            (``&quot;i&quot;`` = int, ``&quot;f&quot;`` = float, ``&quot;O&quot;`` = object, etc.).</span>
+<span class="sd">        optional_columns: Columns that may appear but are not required.</span>
+<span class="sd">        constraints: Named validation rules such as ``&quot;propensity_range&quot;``</span>
+<span class="sd">            or ``&quot;reward_range&quot;`` expressed as ``(low, high)`` tuples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">schema_version</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">required_columns</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">optional_columns</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">constraints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># ── Schema Definitions ──────────────────────────────────────────</span>
+
+<span class="n">BANDIT_V1</span> <span class="o">=</span> <span class="n">SchemaSpec</span><span class="p">(</span>
+    <span class="n">schema_version</span><span class="o">=</span><span class="s2">&quot;bandit_v1&quot;</span><span class="p">,</span>
+    <span class="n">required_columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reward&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">optional_columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;propensity&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">constraints</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;propensity_range&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># exclusive low, inclusive high</span>
+        <span class="s2">&quot;reward_range&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">SEQUENTIAL_V1</span> <span class="o">=</span> <span class="n">SchemaSpec</span><span class="p">(</span>
+    <span class="n">schema_version</span><span class="o">=</span><span class="s2">&quot;sequential_v1&quot;</span><span class="p">,</span>
+    <span class="n">required_columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">optional_columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">constraints</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;rating_range&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># ── Registry ────────────────────────────────────────────────────</span>
+
+<span class="n">_SCHEMAS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SchemaSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;bandit_v1&quot;</span><span class="p">:</span> <span class="n">BANDIT_V1</span><span class="p">,</span>
+    <span class="s2">&quot;sequential_v1&quot;</span><span class="p">:</span> <span class="n">SEQUENTIAL_V1</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_schema">
+<a class="viewcode-back" href="../../../api/index.html#deeprl_recsys.core.schema.get_schema">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_schema</span><span class="p">(</span><span class="n">schema_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaSpec</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a :class:`SchemaSpec` by version string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        schema_version: Version identifier (e.g. ``&quot;bandit_v1&quot;``).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding :class:`SchemaSpec`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        SchemaError: If the version is not recognised.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">_SCHEMAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">schema_version</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">_SCHEMAS</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">SchemaError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown schema version: </span><span class="si">{</span><span class="n">schema_version</span><span class="si">!r}</span><span class="s2">. Available: [</span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">spec</span></div>
+
+
+
+<div class="viewcode-block" id="list_schemas">
+<a class="viewcode-back" href="../../../api/index.html#deeprl_recsys.core.schema.list_schemas">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_schemas</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return sorted list of available schema version identifiers.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Sorted list of schema version strings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_SCHEMAS</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AALP.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

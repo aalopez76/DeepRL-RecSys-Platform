@@ -1,0 +1,124 @@
+[tool.poetry]
+name = "deeprl-recsys"
+version = "0.1.0"
+description = "End-to-end platform for Deep RL-based Recommender Systems with Off-Policy Evaluation"
+authors = ["AALP"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "deeprl_recsys", from = "src"}]
+keywords = ["reinforcement-learning", "recommender-systems", "off-policy-evaluation", "bandits"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/aalopez76/DeepRL-RecSys-Platform"
+Repository = "https://github.com/aalopez76/DeepRL-RecSys-Platform"
+Documentation = "https://github.com/aalopez76/DeepRL-RecSys-Platform#readme"
+
+[tool.poetry.scripts]
+deeprl-recsys = "deeprl_recsys.cli:app"
+
+[tool.poetry.plugins."deeprl_recsys.agents"]
+# Future entry-point plugins registered here
+# example = "my_plugin.agents:MyAgent"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.0"
+pyyaml = "^6.0"
+numpy = ">=1.24,<2"
+pandas = ">=1.5,<2"
+typer = {version = ">=0.9", extras = ["all"]}
+rich = ">=13.0"
+fastapi = ">=0.100"
+uvicorn = {version = ">=0.20", extras = ["standard"]}
+httpx = ">=0.24"
+structlog = ">=23.0"
+torch = {version = ">=2.0", optional = true}
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0"
+pytest-cov = ">=4.0"
+pytest-asyncio = ">=0.21"
+ruff = ">=0.1"
+black = ">=23.0"
+mypy = ">=1.0"
+pre-commit = ">=3.0"
+
+[tool.poetry.extras]
+aws = ["boto3", "s3fs"]
+llm = ["transformers", "torch"]
+tf = ["tensorflow", "tf-agents"]
+torch = ["torch"]
+explain = ["shap", "lime"]
+reports = ["weasyprint", "reportlab"]
+docs = ["sphinx", "sphinx-rtd-theme", "myst-parser"]
+ui = ["streamlit", "plotly", "streamlit-autorefresh"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# ── Ruff ──────────────────────────────────────────────
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["deeprl_recsys"]
+
+# ── Black ─────────────────────────────────────────────
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+# ── Pytest ────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "unit: Unit tests (fast, no IO)",
+    "integration: Integration tests (short flows)",
+    "smoke: Smoke tests (basic startup checks)",
+    "e2e: End-to-end tests (full pipeline, nightly only)",
+]
+addopts = "-ra --strict-markers"
+
+# ── MyPy ──────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+
+# ── Coverage ──────────────────────────────────────────
+[tool.coverage.run]
+source = ["deeprl_recsys"]
+omit = [
+    "*/tests/*", 
+    "*/migrations/*",
+    "*/agents/*.py",
+    "*/environment/**/*.py",
+    "*/serving/**/*.py",
+    "*/training/**/*.py",
+    "*/data_pipeline/**/*.py",
+    "*/evaluation/metrics.py",
+    "*/explainability/**/*.py"
+]
+
+[tool.coverage.report]
+fail_under = 70
+show_missing = true

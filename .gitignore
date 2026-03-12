@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+.mypy_cache/
+.ruff_cache/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+artifacts/models/
+artifacts/logs/
+artifacts/plots/
+data/*.parquet
+data/*.csv
+*.log
+*.pkl
+*.h5
+*.pt
+
+# Keep directories with .gitkeep
+!artifacts/models/.gitkeep
+!artifacts/logs/.gitkeep
+!artifacts/plots/.gitkeep
+!data/.gitkeep

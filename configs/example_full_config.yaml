@@ -1,0 +1,78 @@
+# ══════════════════════════════════════════════════════
+# DeepRL-RecSys-Platform — Full Config Reference
+# ══════════════════════════════════════════════════════
+# This file documents EVERY available configuration key.
+# Copy and uncomment the sections you need for your experiment.
+
+# ── Global ────────────────────────────────────────────
+# seed: 42
+
+# ── Paths ─────────────────────────────────────────────
+# paths:
+#   data_dir: "data/"
+#   artifact_dir: "artifacts/"
+#   log_dir: "artifacts/logs/"
+#   plot_dir: "artifacts/plots/"
+
+# ── Logging ───────────────────────────────────────────
+# logging:
+#   level: "INFO"          # DEBUG | INFO | WARNING | ERROR
+#   format: "json"         # json | text
+
+# ── Dataset ───────────────────────────────────────────
+# dataset:
+#   path: "data/movielens/"
+#   format: "csv"          # csv | parquet
+#   schema_version: "bandit_v1"   # bandit_v1 | sequential_v1
+#   propensity_policy: "mark_unreliable"  # mark_unreliable | block_ope
+#   splits:
+#     strategy: "temporal"   # temporal | random | user_based
+#     train_ratio: 0.8
+#     val_ratio: 0.1
+#     test_ratio: 0.1
+
+# ── Agent ─────────────────────────────────────────────
+# agent:
+#   name: "dqn"            # random | greedy | topk | dqn | ppo | sac
+#   hyperparams:
+#     learning_rate: 0.001
+#     gamma: 0.99
+#     batch_size: 64
+#     hidden_dims: [128, 64]
+
+# ── Training ──────────────────────────────────────────
+# training:
+#   max_steps: 1000
+#   eval_interval: 100
+#   checkpoint_interval: 500
+#   callbacks:
+#     - "tensorboard"
+#     - "checkpoint"
+#     - "early_stopping"
+
+# ── OPE ───────────────────────────────────────────────
+# ope:
+#   estimator: "ips"       # ips | dr | mips
+#   clip_epsilon: 0.01
+#   fail_on_severity: "error"   # error | warning | none
+
+# ── Environment ───────────────────────────────────────
+# environment:
+#   type: "rec_env"
+#   action_space_size: 100
+#   observation_dims: 64
+
+# ── Simulator ─────────────────────────────────────────
+# simulator:
+#   type: "static"         # static | llm
+#   params:
+#     click_prob: 0.05
+
+# ── Serving ───────────────────────────────────────────
+# serving:
+#   host: "0.0.0.0"
+#   port: 8000
+#   workers: 1
+#   auth_enabled: false
+#   rate_limit_rpm: 60
+#   cors_origins: ["*"]

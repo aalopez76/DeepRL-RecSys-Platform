@@ -1,0 +1,10 @@
+# MovieLens Dataset Configuration
+path: "data/movielens/"
+format: "csv"
+schema_version: "sequential_v1"
+propensity_policy: "mark_unreliable"
+splits:
+  strategy: "temporal"
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1

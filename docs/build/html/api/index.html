@@ -1,0 +1,969 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; DeepRL-RecSys-Platform 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="DeepRL-RecSys-Platform" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            DeepRL-RecSys-Platform
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.AgentConfig"><code class="docutils literal notranslate"><span class="pre">AgentConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.AgentConfig.hyperparams"><code class="docutils literal notranslate"><span class="pre">AgentConfig.hyperparams</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.AgentConfig.model_config"><code class="docutils literal notranslate"><span class="pre">AgentConfig.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.AgentConfig.name"><code class="docutils literal notranslate"><span class="pre">AgentConfig.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig"><code class="docutils literal notranslate"><span class="pre">DatasetConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig.format"><code class="docutils literal notranslate"><span class="pre">DatasetConfig.format</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DatasetConfig.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig.path"><code class="docutils literal notranslate"><span class="pre">DatasetConfig.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig.propensity_policy"><code class="docutils literal notranslate"><span class="pre">DatasetConfig.propensity_policy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig.schema_version"><code class="docutils literal notranslate"><span class="pre">DatasetConfig.schema_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig.splits"><code class="docutils literal notranslate"><span class="pre">DatasetConfig.splits</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.LoggingConfig"><code class="docutils literal notranslate"><span class="pre">LoggingConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.LoggingConfig.format"><code class="docutils literal notranslate"><span class="pre">LoggingConfig.format</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.LoggingConfig.level"><code class="docutils literal notranslate"><span class="pre">LoggingConfig.level</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.LoggingConfig.model_config"><code class="docutils literal notranslate"><span class="pre">LoggingConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig"><code class="docutils literal notranslate"><span class="pre">OPEConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig.clip_epsilon"><code class="docutils literal notranslate"><span class="pre">OPEConfig.clip_epsilon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig.estimator"><code class="docutils literal notranslate"><span class="pre">OPEConfig.estimator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig.fail_on_severity"><code class="docutils literal notranslate"><span class="pre">OPEConfig.fail_on_severity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig.model_config"><code class="docutils literal notranslate"><span class="pre">OPEConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig"><code class="docutils literal notranslate"><span class="pre">PathsConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig.artifact_dir"><code class="docutils literal notranslate"><span class="pre">PathsConfig.artifact_dir</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig.data_dir"><code class="docutils literal notranslate"><span class="pre">PathsConfig.data_dir</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig.log_dir"><code class="docutils literal notranslate"><span class="pre">PathsConfig.log_dir</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig.model_config"><code class="docutils literal notranslate"><span class="pre">PathsConfig.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig.plot_dir"><code class="docutils literal notranslate"><span class="pre">PathsConfig.plot_dir</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig"><code class="docutils literal notranslate"><span class="pre">PlatformConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.agent"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.agent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.dataset"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.dataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.logging"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.logging</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.model_config"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.ope"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.ope</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.paths"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.paths</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.seed"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.seed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.serving"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.serving</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig.training"><code class="docutils literal notranslate"><span class="pre">PlatformConfig.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig"><code class="docutils literal notranslate"><span class="pre">ServingConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.auth_enabled"><code class="docutils literal notranslate"><span class="pre">ServingConfig.auth_enabled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.cors_origins"><code class="docutils literal notranslate"><span class="pre">ServingConfig.cors_origins</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.host"><code class="docutils literal notranslate"><span class="pre">ServingConfig.host</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.model_config"><code class="docutils literal notranslate"><span class="pre">ServingConfig.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.port"><code class="docutils literal notranslate"><span class="pre">ServingConfig.port</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.rate_limit_rpm"><code class="docutils literal notranslate"><span class="pre">ServingConfig.rate_limit_rpm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig.workers"><code class="docutils literal notranslate"><span class="pre">ServingConfig.workers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig"><code class="docutils literal notranslate"><span class="pre">SplitsConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig.model_config"><code class="docutils literal notranslate"><span class="pre">SplitsConfig.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig.strategy"><code class="docutils literal notranslate"><span class="pre">SplitsConfig.strategy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig.test_ratio"><code class="docutils literal notranslate"><span class="pre">SplitsConfig.test_ratio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig.train_ratio"><code class="docutils literal notranslate"><span class="pre">SplitsConfig.train_ratio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig.val_ratio"><code class="docutils literal notranslate"><span class="pre">SplitsConfig.val_ratio</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig"><code class="docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig.callbacks"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.callbacks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig.checkpoint_interval"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.checkpoint_interval</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig.eval_interval"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.eval_interval</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig.max_steps"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.max_steps</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig.model_config"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.deep_merge"><code class="docutils literal notranslate"><span class="pre">deep_merge()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.load_yaml"><code class="docutils literal notranslate"><span class="pre">load_yaml()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.resolve_config"><code class="docutils literal notranslate"><span class="pre">resolve_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.config.resolve_paths"><code class="docutils literal notranslate"><span class="pre">resolve_paths()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec"><code class="docutils literal notranslate"><span class="pre">SchemaSpec</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec.schema_version"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.schema_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec.required_columns"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.required_columns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec.optional_columns"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.optional_columns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec.constraints"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.constraints</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.constraints</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.optional_columns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.required_columns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">SchemaSpec.schema_version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.schema.get_schema"><code class="docutils literal notranslate"><span class="pre">get_schema()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.schema.list_schemas"><code class="docutils literal notranslate"><span class="pre">list_schemas()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.artifact_version"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.artifact_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.schema_version"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.schema_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.agent_name"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.agent_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.model_version"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.model_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.git_sha"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.git_sha</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.created_at"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.created_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.checksums"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.checksums</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.agent_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.artifact_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.checksums</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.created_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.git_sha</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.model_config"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.model_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">ArtifactMetadata.schema_version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.artifacts.LoadedArtifact"><code class="docutils literal notranslate"><span class="pre">LoadedArtifact</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.LoadedArtifact.metadata"><code class="docutils literal notranslate"><span class="pre">LoadedArtifact.metadata</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.LoadedArtifact.config"><code class="docutils literal notranslate"><span class="pre">LoadedArtifact.config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deeprl_recsys.core.artifacts.LoadedArtifact.artifact_dir"><code class="docutils literal notranslate"><span class="pre">LoadedArtifact.artifact_dir</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.artifacts.compute_sha256"><code class="docutils literal notranslate"><span class="pre">compute_sha256()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.artifacts.load_artifact"><code class="docutils literal notranslate"><span class="pre">load_artifact()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeprl_recsys.core.artifacts.save_artifact"><code class="docutils literal notranslate"><span class="pre">save_artifact()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DeepRL-RecSys-Platform</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-deeprl_recsys.core.config">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-deeprl_recsys.core.config" title="Link to this heading"></a></h1>
+<p>Configuration system — YAML loading, deterministic merge, and Pydantic validation.</p>
+<p>Implements the config inheritance contract:</p>
+<blockquote>
+<div><p>default.yaml  &lt;  experiment.yaml  &lt;  CLI overrides</p>
+</div></blockquote>
+<p>All merges are deterministic deep-merges.  Relative paths in designated
+fields are resolved to absolute paths relative to the experiment file’s
+directory.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.AgentConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">AgentConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#AgentConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.AgentConfig" title="Link to this definition"></a></dt>
+<dd><p>Agent configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.AgentConfig.hyperparams">
+<span class="sig-name descname"><span class="pre">hyperparams</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#deeprl_recsys.core.config.AgentConfig.hyperparams" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.AgentConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.AgentConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.AgentConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.AgentConfig.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">DatasetConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bandit_v1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">propensity_policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal['mark_unreliable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'block_ope']</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mark_unreliable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig" title="deeprl_recsys.core.config.SplitsConfig"><span class="pre">SplitsConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#DatasetConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig" title="Link to this definition"></a></dt>
+<dd><p>Dataset configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig.format" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig.path">
+<span class="sig-name descname"><span class="pre">path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig.path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig.propensity_policy">
+<span class="sig-name descname"><span class="pre">propensity_policy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'mark_unreliable'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'block_ope'</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig.propensity_policy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig.schema_version">
+<span class="sig-name descname"><span class="pre">schema_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig.schema_version" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.DatasetConfig.splits">
+<span class="sig-name descname"><span class="pre">splits</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.SplitsConfig" title="deeprl_recsys.core.config.SplitsConfig"><span class="pre">SplitsConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.DatasetConfig.splits" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.LoggingConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">LoggingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'INFO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#LoggingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.LoggingConfig" title="Link to this definition"></a></dt>
+<dd><p>Logging settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.LoggingConfig.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.LoggingConfig.format" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.LoggingConfig.level">
+<span class="sig-name descname"><span class="pre">level</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.LoggingConfig.level" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.LoggingConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.LoggingConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.OPEConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">OPEConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ips'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_epsilon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_on_severity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'error'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'warning'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'error'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#OPEConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.OPEConfig" title="Link to this definition"></a></dt>
+<dd><p>Off-Policy Evaluation configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.OPEConfig.clip_epsilon">
+<span class="sig-name descname"><span class="pre">clip_epsilon</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.OPEConfig.clip_epsilon" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.OPEConfig.estimator">
+<span class="sig-name descname"><span class="pre">estimator</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.OPEConfig.estimator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.OPEConfig.fail_on_severity">
+<span class="sig-name descname"><span class="pre">fail_on_severity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'error'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'warning'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#deeprl_recsys.core.config.OPEConfig.fail_on_severity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.OPEConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.OPEConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PathsConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">PathsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'data/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'artifacts/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'artifacts/logs/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'artifacts/plots/'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#PathsConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.PathsConfig" title="Link to this definition"></a></dt>
+<dd><p>Resolved filesystem paths.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PathsConfig.artifact_dir">
+<span class="sig-name descname"><span class="pre">artifact_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PathsConfig.artifact_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PathsConfig.data_dir">
+<span class="sig-name descname"><span class="pre">data_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PathsConfig.data_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PathsConfig.log_dir">
+<span class="sig-name descname"><span class="pre">log_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PathsConfig.log_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PathsConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.PathsConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PathsConfig.plot_dir">
+<span class="sig-name descname"><span class="pre">plot_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PathsConfig.plot_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">PlatformConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig" title="deeprl_recsys.core.config.PathsConfig"><span class="pre">PathsConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.LoggingConfig" title="deeprl_recsys.core.config.LoggingConfig"><span class="pre">LoggingConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig" title="deeprl_recsys.core.config.DatasetConfig"><span class="pre">DatasetConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.AgentConfig" title="deeprl_recsys.core.config.AgentConfig"><span class="pre">AgentConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig" title="deeprl_recsys.core.config.TrainingConfig"><span class="pre">TrainingConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig" title="deeprl_recsys.core.config.OPEConfig"><span class="pre">OPEConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serving</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig" title="deeprl_recsys.core.config.ServingConfig"><span class="pre">ServingConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#PlatformConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig" title="Link to this definition"></a></dt>
+<dd><p>Top-level platform configuration (combines all sub-configs).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.agent">
+<span class="sig-name descname"><span class="pre">agent</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.AgentConfig" title="deeprl_recsys.core.config.AgentConfig"><span class="pre">AgentConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.agent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.dataset">
+<span class="sig-name descname"><span class="pre">dataset</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.DatasetConfig" title="deeprl_recsys.core.config.DatasetConfig"><span class="pre">DatasetConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.dataset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.logging">
+<span class="sig-name descname"><span class="pre">logging</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.LoggingConfig" title="deeprl_recsys.core.config.LoggingConfig"><span class="pre">LoggingConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.logging" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.ope">
+<span class="sig-name descname"><span class="pre">ope</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.OPEConfig" title="deeprl_recsys.core.config.OPEConfig"><span class="pre">OPEConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.ope" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.paths">
+<span class="sig-name descname"><span class="pre">paths</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.PathsConfig" title="deeprl_recsys.core.config.PathsConfig"><span class="pre">PathsConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.paths" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.seed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.serving">
+<span class="sig-name descname"><span class="pre">serving</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.ServingConfig" title="deeprl_recsys.core.config.ServingConfig"><span class="pre">ServingConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.serving" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.PlatformConfig.training">
+<span class="sig-name descname"><span class="pre">training</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#deeprl_recsys.core.config.TrainingConfig" title="deeprl_recsys.core.config.TrainingConfig"><span class="pre">TrainingConfig</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.PlatformConfig.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">ServingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_limit_rpm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cors_origins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#ServingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig" title="Link to this definition"></a></dt>
+<dd><p>Serving endpoint configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.auth_enabled">
+<span class="sig-name descname"><span class="pre">auth_enabled</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.auth_enabled" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.cors_origins">
+<span class="sig-name descname"><span class="pre">cors_origins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.cors_origins" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.host">
+<span class="sig-name descname"><span class="pre">host</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.host" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.port">
+<span class="sig-name descname"><span class="pre">port</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.port" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.rate_limit_rpm">
+<span class="sig-name descname"><span class="pre">rate_limit_rpm</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.rate_limit_rpm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.ServingConfig.workers">
+<span class="sig-name descname"><span class="pre">workers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.ServingConfig.workers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.SplitsConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">SplitsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'temporal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#SplitsConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.SplitsConfig" title="Link to this definition"></a></dt>
+<dd><p>Dataset split ratios.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.SplitsConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.SplitsConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.SplitsConfig.strategy">
+<span class="sig-name descname"><span class="pre">strategy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.SplitsConfig.strategy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.SplitsConfig.test_ratio">
+<span class="sig-name descname"><span class="pre">test_ratio</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.SplitsConfig.test_ratio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.SplitsConfig.train_ratio">
+<span class="sig-name descname"><span class="pre">train_ratio</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.SplitsConfig.train_ratio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.SplitsConfig.val_ratio">
+<span class="sig-name descname"><span class="pre">val_ratio</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.SplitsConfig.val_ratio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.TrainingConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">TrainingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#TrainingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.TrainingConfig" title="Link to this definition"></a></dt>
+<dd><p>Training loop configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.TrainingConfig.callbacks">
+<span class="sig-name descname"><span class="pre">callbacks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#deeprl_recsys.core.config.TrainingConfig.callbacks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.TrainingConfig.checkpoint_interval">
+<span class="sig-name descname"><span class="pre">checkpoint_interval</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.TrainingConfig.checkpoint_interval" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.TrainingConfig.eval_interval">
+<span class="sig-name descname"><span class="pre">eval_interval</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.TrainingConfig.eval_interval" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.TrainingConfig.max_steps">
+<span class="sig-name descname"><span class="pre">max_steps</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#deeprl_recsys.core.config.TrainingConfig.max_steps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.TrainingConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.config.TrainingConfig.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.deep_merge">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">deep_merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#deep_merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.deep_merge" title="Link to this definition"></a></dt>
+<dd><p>Recursively deep-merge <em>override</em> into a copy of <em>base</em>.</p>
+<ul class="simple">
+<li><p>Dict values are merged recursively.</p></li>
+<li><p>Non-dict values in <em>override</em> replace <em>base</em>.</p></li>
+<li><p>Keys in <em>base</em> not present in <em>override</em> are preserved.</p></li>
+</ul>
+<p>This is a <strong>pure function</strong> — neither input is mutated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> – Base dictionary.</p></li>
+<li><p><strong>override</strong> – Dictionary whose values take priority.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new merged dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.load_config">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrides</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_paths_base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#deeprl_recsys.core.config.PlatformConfig" title="deeprl_recsys.core.config.PlatformConfig"><span class="pre">PlatformConfig</span></a></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.load_config" title="Link to this definition"></a></dt>
+<dd><p>Full config pipeline: load → merge → resolve paths → validate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default_path</strong> – Path to <code class="docutils literal notranslate"><span class="pre">default.yaml</span></code>.</p></li>
+<li><p><strong>experiment_path</strong> – Path to experiment YAML.</p></li>
+<li><p><strong>overrides</strong> – CLI overrides.</p></li>
+<li><p><strong>resolve_paths_base</strong> – Base directory for relative path resolution.
+Defaults to the experiment file’s parent or CWD.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A validated <code class="docutils literal notranslate"><span class="pre">PlatformConfig</span></code> instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ConfigError</strong> – On any validation failure, with field and source context.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.load_yaml">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">load_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#load_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.load_yaml" title="Link to this definition"></a></dt>
+<dd><p>Load a YAML file and return its contents as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the YAML file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ConfigError</strong> – If the file cannot be read or parsed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.resolve_config">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">resolve_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrides</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#resolve_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.resolve_config" title="Link to this definition"></a></dt>
+<dd><p>Merge configs with deterministic priority: default &lt; experiment &lt; CLI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default_path</strong> – Path to <code class="docutils literal notranslate"><span class="pre">default.yaml</span></code> (or <code class="docutils literal notranslate"><span class="pre">None</span></code> to start empty).</p></li>
+<li><p><strong>experiment_path</strong> – Path to experiment YAML (optional).</p></li>
+<li><p><strong>overrides</strong> – CLI-level key-value overrides (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fully-merged configuration dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.config.resolve_paths">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.config.</span></span><span class="sig-name descname"><span class="pre">resolve_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/config.html#resolve_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.config.resolve_paths" title="Link to this definition"></a></dt>
+<dd><p>Convert relative path values to absolute paths.</p>
+<p>Only fields whose keys are in <code class="docutils literal notranslate"><span class="pre">_PATH_FIELDS</span></code> and whose values are
+<strong>relative</strong> path strings are resolved.  Resolution is relative to
+<em>base_dir</em> (typically the experiment file’s parent directory).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> – Configuration dictionary (may be nested).</p></li>
+<li><p><strong>base_dir</strong> – Base directory for resolving relative paths.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <strong>new</strong> dictionary with paths resolved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-deeprl_recsys.core.schema">Versioned dataset schemas — <code class="docutils literal notranslate"><span class="pre">bandit_v1</span></code>, <code class="docutils literal notranslate"><span class="pre">sequential_v1</span></code>.</p>
+<p>Defines <a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec" title="deeprl_recsys.core.schema.SchemaSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">SchemaSpec</span></code></a> as a frozen declarative specification and
+provides <a class="reference internal" href="#deeprl_recsys.core.schema.get_schema" title="deeprl_recsys.core.schema.get_schema"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_schema()</span></code></a> for version-based lookup.  These schemas are
+the <strong>single source of truth</strong> consumed by <code class="xref py py-mod docutils literal notranslate"><span class="pre">data_pipeline.validation</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.SchemaSpec">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.schema.</span></span><span class="sig-name descname"><span class="pre">SchemaSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optional_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/schema.html#SchemaSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.schema.SchemaSpec" title="Link to this definition"></a></dt>
+<dd><p>Declarative schema specification for a dataset version.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.SchemaSpec.schema_version">
+<span class="sig-name descname"><span class="pre">schema_version</span></span><a class="headerlink" href="#deeprl_recsys.core.schema.SchemaSpec.schema_version" title="Link to this definition"></a></dt>
+<dd><p>Unique version identifier (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;bandit_v1&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.SchemaSpec.required_columns">
+<span class="sig-name descname"><span class="pre">required_columns</span></span><a class="headerlink" href="#deeprl_recsys.core.schema.SchemaSpec.required_columns" title="Link to this definition"></a></dt>
+<dd><p>Mapping of <code class="docutils literal notranslate"><span class="pre">column_name</span> <span class="pre">→</span> <span class="pre">dtype_kind</span></code>
+where <em>dtype_kind</em> is the single-char NumPy dtype kind
+(<code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code> = int, <code class="docutils literal notranslate"><span class="pre">&quot;f&quot;</span></code> = float, <code class="docutils literal notranslate"><span class="pre">&quot;O&quot;</span></code> = object, etc.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.SchemaSpec.optional_columns">
+<span class="sig-name descname"><span class="pre">optional_columns</span></span><a class="headerlink" href="#deeprl_recsys.core.schema.SchemaSpec.optional_columns" title="Link to this definition"></a></dt>
+<dd><p>Columns that may appear but are not required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.SchemaSpec.constraints">
+<span class="sig-name descname"><span class="pre">constraints</span></span><a class="headerlink" href="#deeprl_recsys.core.schema.SchemaSpec.constraints" title="Link to this definition"></a></dt>
+<dd><p>Named validation rules such as <code class="docutils literal notranslate"><span class="pre">&quot;propensity_range&quot;</span></code>
+or <code class="docutils literal notranslate"><span class="pre">&quot;reward_range&quot;</span></code> expressed as <code class="docutils literal notranslate"><span class="pre">(low,</span> <span class="pre">high)</span></code> tuples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">constraints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">optional_columns</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">required_columns</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">schema_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.get_schema">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.schema.</span></span><span class="sig-name descname"><span class="pre">get_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec" title="deeprl_recsys.core.schema.SchemaSpec"><span class="pre">SchemaSpec</span></a></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/schema.html#get_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.schema.get_schema" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a <a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec" title="deeprl_recsys.core.schema.SchemaSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">SchemaSpec</span></code></a> by version string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>schema_version</strong> – Version identifier (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;bandit_v1&quot;</span></code>).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding <a class="reference internal" href="#deeprl_recsys.core.schema.SchemaSpec" title="deeprl_recsys.core.schema.SchemaSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">SchemaSpec</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SchemaError</strong> – If the version is not recognised.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.schema.list_schemas">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.schema.</span></span><span class="sig-name descname"><span class="pre">list_schemas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/schema.html#list_schemas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.schema.list_schemas" title="Link to this definition"></a></dt>
+<dd><p>Return sorted list of available schema version identifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sorted list of schema version strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-deeprl_recsys.core.artifacts">Canonical artifact save/load with metadata, checksums, and schema guards.</p>
+<p>An <em>artifact</em> is a directory containing everything needed to reproduce or
+serve a trained model:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>my_artifact/
+    metadata.json       # ArtifactMetadata (Pydantic)
+    config.yaml         # Training configuration snapshot
+    schema_version.txt  # Guard — must match metadata.schema_version
+    checksums.txt       # &quot;sha256:&lt;hex&gt;  &lt;filename&gt;&quot; per line
+    model.*             # Serialised model file(s)
+</pre></div>
+</div>
+<p>Use <a class="reference internal" href="#deeprl_recsys.core.artifacts.save_artifact" title="deeprl_recsys.core.artifacts.save_artifact"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_artifact()</span></code></a> to create an artifact and
+<a class="reference internal" href="#deeprl_recsys.core.artifacts.load_artifact" title="deeprl_recsys.core.artifacts.load_artifact"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_artifact()</span></code></a> to load + validate one.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.artifacts.</span></span><span class="sig-name descname"><span class="pre">ArtifactMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">git_sha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/artifacts.html#ArtifactMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata" title="Link to this definition"></a></dt>
+<dd><p>Metadata stored alongside a model artifact.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.artifact_version">
+<span class="sig-name descname"><span class="pre">artifact_version</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.artifact_version" title="Link to this definition"></a></dt>
+<dd><p>Version of the artifact format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.schema_version">
+<span class="sig-name descname"><span class="pre">schema_version</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.schema_version" title="Link to this definition"></a></dt>
+<dd><p>Dataset schema version used during training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.agent_name">
+<span class="sig-name descname"><span class="pre">agent_name</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.agent_name" title="Link to this definition"></a></dt>
+<dd><p>Name of the agent that produced this artifact.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.model_version">
+<span class="sig-name descname"><span class="pre">model_version</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.model_version" title="Link to this definition"></a></dt>
+<dd><p>Semantic version of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.git_sha">
+<span class="sig-name descname"><span class="pre">git_sha</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.git_sha" title="Link to this definition"></a></dt>
+<dd><p>Git commit SHA at artifact creation time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.created_at" title="Link to this definition"></a></dt>
+<dd><p>ISO-8601 timestamp of creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.checksums">
+<span class="sig-name descname"><span class="pre">checksums</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.checksums" title="Link to this definition"></a></dt>
+<dd><p>Mapping of <code class="docutils literal notranslate"><span class="pre">filename</span> <span class="pre">→</span> <span class="pre">&quot;sha256:&lt;hex&gt;&quot;</span></code> for integrity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">agent_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">artifact_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">checksums</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">created_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">git_sha</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.ArtifactMetadata.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.ArtifactMetadata.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">model_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">schema_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.LoadedArtifact">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.artifacts.</span></span><span class="sig-name descname"><span class="pre">LoadedArtifact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata" title="deeprl_recsys.core.artifacts.ArtifactMetadata"><span class="pre">ArtifactMetadata</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/deeprl_recsys/core/artifacts.html#LoadedArtifact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.artifacts.LoadedArtifact" title="Link to this definition"></a></dt>
+<dd><p>Container for a loaded and validated artifact.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.LoadedArtifact.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.LoadedArtifact.metadata" title="Link to this definition"></a></dt>
+<dd><p>Parsed <a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata" title="deeprl_recsys.core.artifacts.ArtifactMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArtifactMetadata</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.LoadedArtifact.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.LoadedArtifact.config" title="Link to this definition"></a></dt>
+<dd><p>Training configuration dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.LoadedArtifact.artifact_dir">
+<span class="sig-name descname"><span class="pre">artifact_dir</span></span><a class="headerlink" href="#deeprl_recsys.core.artifacts.LoadedArtifact.artifact_dir" title="Link to this definition"></a></dt>
+<dd><p>Absolute path to the artifact directory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.compute_sha256">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.artifacts.</span></span><span class="sig-name descname"><span class="pre">compute_sha256</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/artifacts.html#compute_sha256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.artifacts.compute_sha256" title="Link to this definition"></a></dt>
+<dd><p>Compute <code class="docutils literal notranslate"><span class="pre">sha256:&lt;hex&gt;</span></code> for the given file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String in the format <code class="docutils literal notranslate"><span class="pre">&quot;sha256:&lt;hex&gt;&quot;</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.load_artifact">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.artifacts.</span></span><span class="sig-name descname"><span class="pre">load_artifact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#deeprl_recsys.core.artifacts.LoadedArtifact" title="deeprl_recsys.core.artifacts.LoadedArtifact"><span class="pre">LoadedArtifact</span></a></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/artifacts.html#load_artifact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.artifacts.load_artifact" title="Link to this definition"></a></dt>
+<dd><p>Load and validate a model artifact.</p>
+<p>Validation steps:</p>
+<ol class="arabic simple">
+<li><p>Presence of required files (<code class="docutils literal notranslate"><span class="pre">metadata.json</span></code>, <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>).</p></li>
+<li><p><strong>Schema guard</strong> — if <code class="docutils literal notranslate"><span class="pre">schema_version.txt</span></code> exists its content must
+match <code class="docutils literal notranslate"><span class="pre">metadata.schema_version</span></code>.</p></li>
+<li><p><strong>Checksum validation</strong> — if <code class="docutils literal notranslate"><span class="pre">checksums</span></code> are declared in metadata,
+each listed file is verified.</p></li>
+<li><p><strong>Expected schema</strong> — if <em>expected_schema_version</em> is given, it must
+match <code class="docutils literal notranslate"><span class="pre">metadata.schema_version</span></code>.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artifact_dir</strong> – Path to the artifact directory.</p></li>
+<li><p><strong>expected_schema_version</strong> – If set, validate that the artifact’s
+schema version matches this value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#deeprl_recsys.core.artifacts.LoadedArtifact" title="deeprl_recsys.core.artifacts.LoadedArtifact"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoadedArtifact</span></code></a> with parsed metadata and config.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ArtifactError</strong> – On any validation failure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deeprl_recsys.core.artifacts.save_artifact">
+<span class="sig-prename descclassname"><span class="pre">deeprl_recsys.core.artifacts.</span></span><span class="sig-name descname"><span class="pre">save_artifact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model.pt'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></span><a class="reference internal" href="../_modules/deeprl_recsys/core/artifacts.html#save_artifact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#deeprl_recsys.core.artifacts.save_artifact" title="Link to this definition"></a></dt>
+<dd><p>Save a model artifact with metadata and checksums.</p>
+<p>Creates the canonical artifact layout under <em>output_dir</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_dir</strong> – Destination directory (created if absent).</p></li>
+<li><p><strong>model_bytes</strong> – Raw bytes for the model file.</p></li>
+<li><p><strong>config_dict</strong> – Training configuration dictionary.</p></li>
+<li><p><strong>schema_version</strong> – Dataset schema version used during training.</p></li>
+<li><p><strong>agent_name</strong> – Agent that produced the artifact.</p></li>
+<li><p><strong>model_filename</strong> – Filename for the model blob (default <code class="docutils literal notranslate"><span class="pre">&quot;model.pt&quot;</span></code>).</p></li>
+<li><p><strong>**extra_metadata</strong> – Additional fields for <a class="reference internal" href="#deeprl_recsys.core.artifacts.ArtifactMetadata" title="deeprl_recsys.core.artifacts.ArtifactMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArtifactMetadata</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path to the saved artifact directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="DeepRL-RecSys-Platform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AALP.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

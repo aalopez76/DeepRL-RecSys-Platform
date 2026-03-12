@@ -1,0 +1,9 @@
+# Tiny artifact config — used for testing
+seed: 42
+agent:
+  name: "random"
+  hyperparams: {}
+dataset:
+  schema_version: "bandit_v1"
+training:
+  max_steps: 10

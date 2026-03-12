@@ -1,0 +1,28 @@
+# Experiment 3: SAC on Synthetic Dataset
+# Inherits from default.yaml and overrides agent + dataset sections.
+# SAC uses twin Q-networks + stochastic actor with entropy regularisation.
+
+seed: 7
+
+agent:
+  name: "sac"
+  hyperparams:
+    learning_rate: 0.0003       # Adam LR for actor & critics
+    gamma: 0.99                 # Discount factor
+    tau: 0.005                  # Polyak soft-update coefficient
+    alpha: 0.2                  # Entropy regularisation temperature
+    batch_size: 64
+    buffer_size: 10000
+    embedding_dim: 64
+    hidden_dims: [128, 64]
+
+dataset:
+  path: "data/synthetic/"
+  format: "parquet"
+  schema_version: "bandit_v1"
+  propensity_policy: "mark_unreliable"
+
+training:
+  max_steps: 2000
+  eval_interval: 200
+  checkpoint_interval: 500

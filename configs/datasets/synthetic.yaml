@@ -1,0 +1,15 @@
+# Synthetic Dataset Configuration
+path: "data/synthetic/"
+format: "parquet"
+schema_version: "bandit_v1"
+propensity_policy: "mark_unreliable"
+generator:
+  n_users: 1000
+  n_items: 100
+  n_interactions: 50000
+  reward_noise: 0.1
+splits:
+  strategy: "random"
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1

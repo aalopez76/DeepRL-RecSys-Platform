@@ -1,0 +1,12 @@
+{
+    "artifact_version": "1.0.0",
+    "schema_version": "bandit_v1",
+    "agent_name": "random",
+    "model_version": "0.1.0-tiny",
+    "git_sha": "abc1234",
+    "created_at": "2026-03-04T00:00:00Z",
+    "checksums": {
+        "model.pt": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "config.yaml": "sha256:6a8d4cf9466b0ed224b9a0a3f67ccd73fee46bda88387fb04b0b1e45f5a26b8d"
+    }
+}

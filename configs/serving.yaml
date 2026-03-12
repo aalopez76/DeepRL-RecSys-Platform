@@ -1,0 +1,27 @@
+# ── FastAPI Serving Configuration ──────────────────────
+host: "0.0.0.0"
+port: 8000
+workers: 1
+
+auth:
+  enabled: false
+  api_keys: []
+
+rate_limit:
+  enabled: true
+  requests_per_minute: 60
+
+cors:
+  origins: ["*"]
+  allow_credentials: true
+  allow_methods: ["*"]
+  allow_headers: ["*"]
+
+logging:
+  level: "INFO"
+  format: "json"
+  access_log: true
+
+timeouts:
+  request_timeout_s: 30
+  warmup_timeout_s: 60
