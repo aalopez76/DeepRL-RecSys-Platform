@@ -40,7 +40,7 @@ El proyecto usa [Poetry](https://python-poetry.org/) para gestión de dependenci
 
 ¿Quieres ver la plataforma en acción sin configurar nada? Hemos preparado un Notebook interactivo que muestra el flujo completo (End-to-End): generación de datos sintéticos, entrenamiento SAC, evaluación OPE y despliegue del motor de Inferencia.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aalopez76/DeepRL-RecSys-Platform/blob/main/examples/demo_train_eval_serve.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aalopez76/DeepRL-RecSys-Platform/blob/master/examples/demo_train_eval_serve.ipynb)
 
 👉 **[Ver Notebook Localmente: `examples/demo_train_eval_serve.ipynb`](./examples/demo_train_eval_serve.ipynb)**
 
