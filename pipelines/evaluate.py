@@ -81,13 +81,36 @@ def run_evaluate(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, 
         "severity": verdict.severity,
     }
 
-    # 3. Generate report if output dir is configured
-    reports_dir = ope_cfg.get("reports_dir")
+    # 3. Generate report if output dir is configured or fallback to artifacts/checkpoints
+    reports_dir = ope_cfg.get("reports_dir", "artifacts/checkpoints")
     if reports_dir and not dry_run:
         from deeprl_recsys.evaluation.report import generate_report
+        import json
+        from pathlib import Path
+        
+        out = Path(reports_dir)
+        out.mkdir(parents=True, exist_ok=True)
 
         generate_report(estimates, verdict, output_dir=reports_dir, format="markdown")
-        generate_report(estimates, verdict, output_dir=reports_dir, format="json")
+        
+        # Guardar OPE JSON robusto con importance weights para el dashboard
+        action_probs = data.get("action_probs", np.ones_like(data.get("propensities", [])))
+        clipped_props = np.clip(data.get("propensities", [1.0]), clip_epsilon, None)
+        importance_weights = (action_probs / clipped_props).tolist()
+        
+        report_data = {
+            "estimates": estimates,
+            "verdict": {
+                "reliable": verdict.reliable,
+                "severity": verdict.severity,
+                "warnings": verdict.warnings,
+                "stats": verdict.stats,
+            },
+            "importance_weights": importance_weights
+        }
+        
+        with open(out / "ope_report.json", "w", encoding="utf-8") as f:
+            json.dump(report_data, f, indent=2)
 
     # 4. Fail if required
     if fail_on == "error" and verdict.severity == "error":
