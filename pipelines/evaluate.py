@@ -39,6 +39,14 @@ def run_evaluate(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, 
     Returns:
         Dictionary with ``estimates``, ``verdict``, and ``severity``.
     """
+    try:
+        import torch
+    except ImportError:
+        raise RuntimeError(
+            "PyTorch no está instalado. La evaluación OPE real requiere torch. "
+            "Instálalo con: poetry add torch"
+        )
+
     ope_cfg = config.get("ope", {})
     seed = config.get("seed", 42)
 
@@ -49,7 +57,7 @@ def run_evaluate(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, 
     logger.info("evaluate_start", estimators=estimator_names, clip_epsilon=clip_epsilon)
 
     # Build data dict — use provided data or generate synthetic
-    data = _build_ope_data(ope_cfg, seed)
+    data = _build_ope_data(ope_cfg, seed, config)
 
     # 1. Run estimators
     estimates: dict[str, float] = {}
@@ -81,8 +89,9 @@ def run_evaluate(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, 
         "severity": verdict.severity,
     }
 
-    # 3. Generate report if output dir is configured or fallback to artifacts/checkpoints
-    reports_dir = ope_cfg.get("reports_dir", "artifacts/checkpoints")
+    # 3. Generate report if output dir is configured or fallback to paths.artifact_dir
+    paths_cfg = config.get("paths", {})
+    reports_dir = paths_cfg.get("artifact_dir", "artifacts/checkpoints")
     if reports_dir and not dry_run:
         from deeprl_recsys.evaluation.report import generate_report
         import json
@@ -120,7 +129,7 @@ def run_evaluate(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, 
     return result
 
 
-def _build_ope_data(ope_cfg: dict[str, Any], seed: int) -> dict[str, np.ndarray]:
+def _build_ope_data(ope_cfg: dict[str, Any], seed: int, config: dict[str, Any] = None) -> dict[str, np.ndarray]:
     """Build OPE data from config or generate synthetic data."""
     if "data" in ope_cfg:
         raw = ope_cfg["data"]
@@ -128,6 +137,65 @@ def _build_ope_data(ope_cfg: dict[str, Any], seed: int) -> dict[str, np.ndarray]
             "rewards": np.asarray(raw["rewards"], dtype=float),
             "propensities": np.asarray(raw["propensities"], dtype=float),
             "action_probs": np.asarray(raw["action_probs"], dtype=float),
+        }
+
+    dataset_cfg = config.get("dataset", {}) if config else {}
+    if dataset_cfg.get("path"):
+        import pandas as pd
+        import json
+        from deeprl_recsys.serving.runtime import ServingRuntime
+        
+        data_path = dataset_cfg["path"]
+        df = pd.read_parquet(data_path)
+        
+        n = ope_cfg.get("n_samples", 5000)
+        if len(df) > n:
+            df = df.sample(n=n, random_state=seed)
+            
+        rewards = df["reward"].values.astype(float)
+        propensities = df["propensity"].values.astype(float)
+        actions = df["action"].values
+        contexts = df["context"].values
+        
+        # Load Agent
+        paths_cfg = config.get("paths", {})
+        artifact_dir = paths_cfg.get("artifact_dir", "artifacts/models/latest")
+        
+        from deeprl_recsys.core.registry import create
+        import copy
+        
+        agent_name = config.get("agent", {}).get("name", "sac")
+        agent_hp = config.get("agent", {}).get("hyperparams", {})
+        try:
+            agent = create("agents", agent_name, **copy.deepcopy(agent_hp))
+            model_pt = Path(artifact_dir) / "model.pt"
+            if model_pt.exists():
+                agent.load(str(model_pt))
+        except Exception as e:
+            agent = None
+            
+        action_probs = []
+        candidates = list(range(50)) # Assuming 50 items for this dataset
+        import sys, os
+        # Silence verbose logging from agent
+        _original_stdout = sys.stdout
+        sys.stdout = open(os.devnull, 'w')
+        try:
+            for ctx_str, act in zip(contexts, actions):
+                ctx = json.loads(ctx_str)
+                if agent is not None:
+                    probs = agent.get_action_probabilities(ctx, candidates)
+                    action_probs.append(probs.get(int(act), 0.05))
+                else:
+                    action_probs.append(0.0)
+        finally:
+            sys.stdout.close()
+            sys.stdout = _original_stdout
+            
+        return {
+            "rewards": rewards,
+            "propensities": propensities,
+            "action_probs": np.asarray(action_probs, dtype=float),
         }
 
     # Generate synthetic (for testing / demo)

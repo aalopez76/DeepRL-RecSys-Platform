@@ -7,15 +7,15 @@
 ## Tabla Comparativa OPE
 | Escenario | IPS   | DR    | MIPS  | ESS   | Veredicto (PASS/WARN/FAIL) |
 |-----------|-------|-------|-------|-------|-----------------------------|
-| Sintético | 0.0000 | 0.0000 | 0.0000 | 0.0 | FAIL |
-| OBD Random| 0.0000 | 0.0000 | 0.0000 | 0.0 | FAIL |
-| OBD BTS   | 0.0000 | 0.0000 | 0.0000 | 0.0 | FAIL |
+| Sintético | 0.3139 | 0.3139 | 0.0000 | 57.0 | OK |
+| OBD Random| 0.0232 | 0.0232 | 0.0000 | 356.1 | OK |
+| OBD BTS   | 0.0051 | 0.0051 | 0.0000 | 1837.1 | WARNING |
 
 *Nota: El decaimiento del ESS de Random a BTS indica la pérdida de confianza en la evaluación OPE debido al sesgo.*
 
 ## Resultados de Sensibilidad (N=100 usuarios)
-- **Correlación de rango promedio (Spearman)**: 1.0000 (Interpretación: Alta estabilidad).
-- **Porcentaje de alineación**: el ítem real se mantuvo en el top-5 en el 0.0% de los casos tras la perturbación.
+- **Correlación de rango promedio (Spearman)**: 1.0000 (Interpretación: Alta estabilidad. Al ser 1.0, indica que la arquitectura actual omite el contexto numérico dict y prioriza los embeddings puramente).
+- **Porcentaje de alineación (Top-5 Overlap)**: El top-5 original versus perturbado mantuvo un overlap del 100.0%.
 - **Sensibilidad de score promedio**: Δscore = 0.0000 (escala 0-1).
 
 ![Comparación de estimadores](figures/comparacion_estimadores.png)
@@ -25,9 +25,9 @@
 *Figura 2: Relación entre el cambio en afinidad y la estabilidad del ranking.*
 
 ## Diagnóstico de Fiabilidad por Escenario
-- **Sintético**: FAIL - Comportamiento predecible.
-- **OBD Random**: FAIL - Control confiable y distribución normal.
-- **OBD BTS**: FAIL - Retención de confianza ESS mermada por la entropía OPE.
+- **Sintético**: OK - Comportamiento predecible.
+- **OBD Random**: OK - Control confiable y distribución normal.
+- **OBD BTS**: WARNING - Retención de confianza ESS mermada por la entropía OPE.
 
 ## Conclusiones y Recomendaciones
 ¿El modelo es lo suficientemente robusto para producción con datos sesgados? 
