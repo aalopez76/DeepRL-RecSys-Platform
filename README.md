@@ -44,6 +44,23 @@ El proyecto usa [Poetry](https://python-poetry.org/) para gestión de dependenci
 
 👉 **[Ver Notebook Localmente: `examples/demo_train_eval_serve.ipynb`](./examples/demo_train_eval_serve.ipynb)**
 
+## 📊 Integración E2E: Open Bandit Dataset (OBD)
+
+La plataforma soporta nativamente la ingesta y preparación de **Open Bandit Dataset** para Benchmarks con datos reales distribuidos:
+
+1. **Transformación Vectorizada Parquet:** Extrae, mapea, comprime y formatea el contexto a nivel JSON.
+   ```bash
+   python scripts/prepare_obd.py --policy random --campaign all
+   ```
+2. **Entrenamiento Continuo SAC:** Dispara tu baseline DQN/SAC con el buffer generado sin estropear memoria.
+   ```bash
+   deeprl-recsys train --config configs/experiments/exp_obd_sac_real.yaml
+   ```
+3. **Evaluación Contra-factual (OPE):** Retén los índices de propensión (IPS, Doubly Robust, etc.) sobre recompensas con clip de $\epsilon$.
+   ```bash
+   deeprl-recsys evaluate --config configs/experiments/exp_obd_sac_real.yaml
+   ```
+
 ## ⚡ Uso por CLI
 
 **Entrenar un agente (baseline Random)**

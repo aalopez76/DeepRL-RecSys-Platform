@@ -1,0 +1,18 @@
+seed: 42
+agent:
+  name: "sac"
+  hyperparams:
+    learning_rate: 0.001
+    gamma: 0.99
+    alpha: 0.5          # Fomenta la exploración en datos reales
+    tau: 0.005
+dataset:
+  path: "data/obd/random/all.parquet"
+  format: "parquet"
+  schema_version: "bandit_v1"
+  propensity_policy: "mark_unreliable"
+training:
+
+  max_steps: 2000
+  eval_interval: 500
+  checkpoint_interval: 1000

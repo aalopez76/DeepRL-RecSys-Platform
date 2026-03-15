@@ -1,0 +1,4 @@
+path: "data/obd/random/women.parquet"
+format: "parquet"
+schema_version: "bandit_v1"
+propensity_policy: "mark_unreliable"

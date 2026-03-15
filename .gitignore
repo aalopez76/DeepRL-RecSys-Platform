@@ -25,6 +25,7 @@ pip-delete-this-directory.txt
 artifacts/models/
 artifacts/logs/
 artifacts/plots/
+data/obd/
 data/*.parquet
 data/*.csv
 *.log
