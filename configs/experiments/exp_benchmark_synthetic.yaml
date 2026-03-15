@@ -1,0 +1,28 @@
+seed: 42
+agent:
+  name: "sac"
+  hyperparams:
+    learning_rate: 0.001
+    gamma: 0.99
+    alpha: 0.2
+    tau: 0.005
+    batch_size: 128
+    buffer_size: 50000
+
+dataset:
+  path: "data/synthetic_demo.parquet"
+  format: "parquet"
+  schema_version: "bandit_v1"
+  propensity_policy: "mark_unreliable"
+
+training:
+  max_steps: 1000
+  eval_interval: 200
+  checkpoint_interval: 500
+
+ope:
+  estimators: ["ips", "dr", "mips"]
+  reports_dir: "artifacts/models/benchmark_synthetic"
+
+paths:
+  artifact_dir: "artifacts/models/benchmark_synthetic"
