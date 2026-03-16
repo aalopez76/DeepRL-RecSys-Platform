@@ -1,10 +1,16 @@
 import os
 import sys
 
-# Append the project root so internal imports from 'src' work gracefully
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Definir la raíz y la carpeta src
+root_path = os.path.dirname(os.path.abspath(__file__))
+src_path = os.path.join(root_path, "src")
 
-from src.deeprl_recsys.ui.app import main
+# Añadir ambas al path de búsqueda de Python
+sys.path.append(root_path)
+sys.path.append(src_path)
+
+# Ahora la importación funcionará sin el prefijo 'src.'
+from deeprl_recsys.ui.app import main
 
 if __name__ == "__main__":
     main()
