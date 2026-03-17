@@ -91,19 +91,54 @@ class DoublyRobustEstimator(BaseEstimator):
 
 
 class MIPSEstimator(BaseEstimator):
-    """Marginalised IPS (MIPS) estimator.
+    """Marginalised Inverse Propensity Scoring (MIPS) estimator.
 
-    Currently implemented identically to IPS — will be extended with
-    marginalisation over item embeddings in a future phase.
+    MIPS reduces the variance of IPS in large action spaces by using
+    marginal propensities instead of joint action probabilities.
+    This assumes that the logging policy can be decomposed into
+    item-wise selection probabilities.
+
+    **Formula**:
+    .. math::
+        \\hat{V}_{MIPS} = \\frac{1}{n} \\sum_{i=1}^{n} \\frac{\\pi_e(a_i|s_i)}{\\hat{p}(a_i)} r_i
+
+    Where:
+    - :math:`\\pi_e(a|s)` is the target policy probability.
+    - :math:`\\hat{p}(a)` is the marginal logging propensity of action :math:`a`.
+
+    Args:
+        action_marginals: Dictionary mapping action IDs to their marginal
+            logging propensities.
+        clip_epsilon: Minimum propensity for clipping (default: 0.01).
     """
 
-    def __init__(self, clip_epsilon: float = 0.01) -> None:
+    def __init__(
+        self,
+        action_marginals: dict[int, float] | None = None,
+        clip_epsilon: float = 0.01,
+    ) -> None:
+        self.action_marginals = action_marginals or {}
         self.clip_epsilon = clip_epsilon
 
     def estimate(self, data: dict[str, np.ndarray]) -> float:
+        """Estimate value using marginal propensities.
+
+        If ``action_marginals`` were not provided at init, it attempts to
+        find them in the data dictionary.
+        """
         rewards = data["rewards"]
-        propensities = np.clip(data["propensities"], self.clip_epsilon, None)
         action_probs = data["action_probs"]
+        
+        # Determine marginals for each sample
+        # We assume 'actions' key exists if we need to map marginals manually
+        # If not, we fall back to IPS-style propensities if they are already marginals
+        marginals = data.get("marginal_propensities")
+        if marginals is None:
+            # Fallback to IPS if no marginals provided
+            propensities = np.clip(data["propensities"], self.clip_epsilon, None)
+        else:
+            propensities = np.clip(marginals, self.clip_epsilon, None)
+
         weights = action_probs / propensities
         return float(np.mean(weights * rewards))
 

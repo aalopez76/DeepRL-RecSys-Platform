@@ -5,6 +5,7 @@
 [![Tests](https://img.shields.io/badge/tests-123%20passing-brightgreen)]()
 [![Coverage](https://img.shields.io/badge/coverage-%3E85%25-success)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://deeprl-recsys.streamlit.app)
 
 **DeepRL-RecSys-Platform** es un framework de grado industrial para construir, evaluar y desplegar sistemas de recomendación basados en Deep Reinforcement Learning (DRL). Combina agentes avanzados (DQN, PPO, SAC), evaluación offline robusta (OPE) y una arquitectura lista para producción.
 
@@ -42,7 +43,9 @@ El proyecto usa [Poetry](https://python-poetry.org/) para gestión de dependenci
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aalopez76/DeepRL-RecSys-Platform/blob/master/examples/demo_train_eval_serve.ipynb)
 
-👉 **[Ver Notebook Localmente: `examples/demo_train_eval_serve.ipynb`](./examples/demo_train_eval_serve.ipynb)**
+👉 **[Ver Notebook Básico (Entrenamiento/Servicio): `examples/demo_train_eval_serve.ipynb`](./examples/demo_train_eval_serve.ipynb)**
+
+👉 **[Ver Notebook Avanzado (Interactividad OPE & Sensibilidad): `examples/advanced_ope_analysis.ipynb`](./examples/advanced_ope_analysis.ipynb)**
 
 ## 📊 Integración E2E: Open Bandit Dataset (OBD)
 
@@ -61,6 +64,22 @@ La plataforma soporta nativamente la ingesta y preparación de **Open Bandit Dat
    deeprl-recsys evaluate --config configs/experiments/exp_obd_sac_real.yaml
    ```
 
+4. **Orquestación Completa (Single-Agent):** Ejecuta todo el benchmark (Synthetic, OBD Random, OBD BTS) y regenera los reportes automáticamente en un solo paso.
+   ```bash
+   python scripts/run_full_benchmark.py --agent dqn
+   ```
+
+5. **Multi-Agent Benchmark (🏆):** Ejecuta iterativamente todos los escenarios para `SAC`, `DQN` y `PPO`. Limpia la memoria GPU/CPU entre corridas y genera el documento comparativo `Agents_Comparison.md`.
+   ```bash
+   python scripts/run_all_agents_benchmark.py
+   ```
+
+## 🌐 Dashboard Online (Streamlit Cloud)
+
+Hemos desplegado un **Dashboard Interactivo y Analítico** para visualizar fácilmente los reportes OPE, los simuladores de sensibilidad de ranking y las tablas maestras.
+- Puedes visitarlo en línea: **[DeepRL-RecSys Streamlit App](https://deeprl-recsys.streamlit.app)**
+- Soporta inferencia y test de "Recommendation Playground" usando modelos locales preentrenados cargados on-the-fly (`artifacts/models/`). Si no se incluye el id del modelo, buscará iterativamente el modelo de ejemplo o te advertirá afablemente que corras un Benchmark primero!
+
 ## ⚡ Uso por CLI
 
 **Entrenar un agente (baseline Random)**
@@ -73,9 +92,9 @@ deeprl-recsys train --config configs/experiments/exp1_dqn_movielens.yaml
 deeprl-recsys evaluate --config configs/experiments/exp1_dqn_movielens.yaml
 ```
 
-**Lanzar el dashboard interactivo**
+**Lanzar el dashboard interactivo local**
 ```bash
-deeprl-recsys ui
+python -m streamlit run streamlit_app.py
 ```
 
 **Servir el modelo (FastAPI)**

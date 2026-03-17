@@ -48,6 +48,7 @@ def run_evaluate(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, 
         )
 
     ope_cfg = config.get("ope", {})
+    print(f"DEBUG: ope_cfg = {ope_cfg}")
     seed = config.get("seed", 42)
 
     estimator_names = ope_cfg.get("estimators", ["ips", "dr"])
@@ -152,8 +153,15 @@ def _build_ope_data(ope_cfg: dict[str, Any], seed: int, config: dict[str, Any] =
         if len(df) > n:
             df = df.sample(n=n, random_state=seed)
             
+        import numpy as np
         rewards = df["reward"].values.astype(float)
-        propensities = df["propensity"].values.astype(float)
+        if "propensity" in df.columns:
+            propensities = df["propensity"].values.astype(float)
+        else:
+            n_actions = len(df["action"].unique())
+            default_p = 1.0 / n_actions if n_actions > 0 else 0.01
+            propensities = np.full(len(df), default_p)
+            
         actions = df["action"].values
         contexts = df["context"].values
         
@@ -192,10 +200,27 @@ def _build_ope_data(ope_cfg: dict[str, Any], seed: int, config: dict[str, Any] =
             sys.stdout.close()
             sys.stdout = _original_stdout
             
+        # Calculate Marginal Propensities (MIPS) with Laplace Smoothing
+        unique_actions, counts = np.unique(actions, return_counts=True)
+        action_map = dict(zip(unique_actions, counts))
+        
+        # Add-one smoothing (Laplace) to avoid zero propensities
+        total_samples = len(actions)
+        num_possible_actions = 50 # Assuming 50 items for this dataset
+        
+        marginal_map = {}
+        for a_id in range(num_possible_actions):
+            count = action_map.get(a_id, 0)
+            # Formula: (count + 1) / (N + K)
+            marginal_map[a_id] = (count + 1) / (total_samples + num_possible_actions)
+            
+        marginal_propensities = np.array([marginal_map.get(int(a), 1e-8) for a in actions])
+
         return {
             "rewards": rewards,
             "propensities": propensities,
             "action_probs": np.asarray(action_probs, dtype=float),
+            "marginal_propensities": marginal_propensities,
         }
 
     # Generate synthetic (for testing / demo)

@@ -79,7 +79,7 @@ class TrainingConfig(BaseModel):
 class OPEConfig(BaseModel):
     """Off-Policy Evaluation configuration."""
 
-    estimator: str = "ips"
+    estimators: list[str] = Field(default_factory=lambda: ["ips", "dr"])
     clip_epsilon: float = 0.01
     fail_on_severity: Literal["error", "warning", "none"] = "error"
 

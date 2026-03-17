@@ -31,7 +31,6 @@ data/*.csv
 *.log
 *.pkl
 *.h5
-*.pt
 
 # Keep directories with .gitkeep
 !artifacts/models/.gitkeep
@@ -39,9 +38,21 @@ data/*.csv
 !artifacts/plots/.gitkeep
 !data/.gitkeep
 
-# Expose sample artifacts for demonstration
+# Expose sample and benchmark artifacts for demonstration
 !artifacts/models/dummy_model/
 !artifacts/models/dummy_model/**
+!artifacts/models/example_model/
+!artifacts/models/example_model/**
 !artifacts/models/latest/
 !artifacts/models/latest/**
+!artifacts/models/benchmark*/
+!artifacts/models/benchmark*/**
+
+# Allow figures
+!docs/benchmarks/figures/
+!docs/benchmarks/figures/**
+
 !*.pt
+!*.yaml
+!*.json
+!*.jsonl

@@ -1,16 +1,18 @@
 seed: 42
 agent:
-  name: "sac"
+  name: "dqn"
   hyperparams:
     learning_rate: 0.001
     gamma: 0.99
-    alpha: 0.5
-    tau: 0.005
+    epsilon: 0.1
+    epsilon_decay: 0.995
     batch_size: 128
     buffer_size: 50000
+    target_update_freq: 100
+    hidden_dims: [256, 256] # Red oculta de 256x256 para comparabilidad con SAC
 
 dataset:
-  path: "../../data/obd/random/all.parquet"
+  path: "../../data/obd/bts/all.parquet"
   format: "parquet"
   schema_version: "bandit_v1"
   propensity_policy: "mark_unreliable"
@@ -22,7 +24,7 @@ training:
 
 ope:
   estimators: ["ips", "dr", "mips"]
-  reports_dir: "../../artifacts/models/benchmark_random"
+  reports_dir: "../../artifacts/models/benchmark_dqn_bts"
 
 paths:
-  artifact_dir: "../../artifacts/models/benchmark_random"
+  artifact_dir: "../../artifacts/models/benchmark_dqn_bts"

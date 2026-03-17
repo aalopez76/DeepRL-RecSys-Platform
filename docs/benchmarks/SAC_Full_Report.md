@@ -7,9 +7,9 @@
 ## Tabla Comparativa OPE
 | Escenario | IPS   | DR    | MIPS  | ESS   | Veredicto (PASS/WARN/FAIL) |
 |-----------|-------|-------|-------|-------|-----------------------------|
-| Sintético | 0.3139 | 0.3139 | 0.0000 | 57.0 | OK |
-| OBD Random| 0.0232 | 0.0232 | 0.0000 | 356.1 | OK |
-| OBD BTS   | 0.0051 | 0.0051 | 0.0000 | 1837.1 | WARNING |
+| Sintético | 0.0979 | 0.0979 | 0.0976 | 4924.6 | OK |
+| OBD Random| 0.0111 | 0.0111 | 0.0127 | 4099.0 | OK |
+| OBD BTS   | 0.0049 | 0.0049 | 0.0140 | 2029.2 | WARNING |
 
 *Nota: El decaimiento del ESS de Random a BTS indica la pérdida de confianza en la evaluación OPE debido al sesgo.*
 

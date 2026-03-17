@@ -1,13 +1,15 @@
 seed: 42
 agent:
-  name: "sac"
+  name: "dqn"
   hyperparams:
     learning_rate: 0.001
     gamma: 0.99
-    alpha: 0.2
-    tau: 0.005
+    epsilon: 0.1
+    epsilon_decay: 0.995
     batch_size: 128
     buffer_size: 50000
+    target_update_freq: 100
+    hidden_dims: [256, 256] # Red oculta de 256x256 para comparabilidad con SAC
 
 dataset:
   path: "../../data/synthetic_demo.parquet"
@@ -22,7 +24,7 @@ training:
 
 ope:
   estimators: ["ips", "dr", "mips"]
-  reports_dir: "../../artifacts/models/benchmark_synthetic"
+  reports_dir: "../../artifacts/models/benchmark_dqn_synthetic"
 
 paths:
-  artifact_dir: "../../artifacts/models/benchmark_synthetic"
+  artifact_dir: "../../artifacts/models/benchmark_dqn_synthetic"

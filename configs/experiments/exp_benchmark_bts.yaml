@@ -10,7 +10,7 @@ agent:
     buffer_size: 50000
 
 dataset:
-  path: "data/obd/bts/all.parquet"
+  path: "../../data/obd/bts/all.parquet"
   format: "parquet"
   schema_version: "bandit_v1"
   propensity_policy: "mark_unreliable"
@@ -22,7 +22,7 @@ training:
 
 ope:
   estimators: ["ips", "dr", "mips"]
-  reports_dir: "artifacts/models/benchmark_bts"
+  reports_dir: "../../artifacts/models/benchmark_bts"
 
 paths:
-  artifact_dir: "artifacts/models/benchmark_bts"
+  artifact_dir: "../../artifacts/models/benchmark_bts"

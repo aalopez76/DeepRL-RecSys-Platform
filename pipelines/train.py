@@ -48,8 +48,9 @@ def run_train(config: dict[str, Any], *, dry_run: bool = False) -> dict[str, Any
     agent_name = agent_cfg.get("name", "random")
     agent_params = agent_cfg.get("params", {})
     max_steps = training_cfg.get("max_steps", 5)
-    checkpoint_dir = Path(training_cfg.get("checkpoint_dir", "artifacts/checkpoints"))
-
+    paths_cfg = config.get("paths", {})
+    checkpoint_dir = Path(training_cfg.get("checkpoint_dir", paths_cfg.get("artifact_dir", "artifacts/checkpoints")))
+    
     logger.info("train_start", agent=agent_name, max_steps=max_steps, seed=seed)
 
     # 1. Instantiate agent via registry
