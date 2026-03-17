@@ -38,7 +38,7 @@ def home_view():
         df_artifacts = scan_artifacts(BASE_ARTIFACTS_DIR)
         
     if df_artifacts.empty:
-        st.info("No se encontraron artefactos. Ejecuta los pipelines de entrenamiento primero.")
+        st.error("No se encontró un modelo entrenado. Por favor, ejecuta primero el benchmark localmente con `python scripts/run_full_benchmark.py` o descarga un modelo pre-entrenado.")
         return
         
     st.dataframe(
@@ -53,7 +53,7 @@ def ope_view():
     
     df_artifacts = scan_artifacts(BASE_ARTIFACTS_DIR)
     if df_artifacts.empty:
-        st.warning("No hay artefactos disponibles para analizar.")
+        st.error("No se encontró un modelo entrenado. Por favor, ejecuta primero el benchmark localmente con `python scripts/run_full_benchmark.py` o descarga un modelo pre-entrenado.")
         return
         
     artifact_opts = df_artifacts["artifact_id"].tolist()
@@ -118,7 +118,7 @@ def training_view():
 
     df_artifacts = scan_artifacts(BASE_ARTIFACTS_DIR)
     if df_artifacts.empty:
-        st.warning("No hay artefactos disponibles.")
+        st.error("No se encontró un modelo entrenado. Por favor, ejecuta primero el benchmark localmente con `python scripts/run_full_benchmark.py` o descarga un modelo pre-entrenado.")
         return
         
     artifact_opts = df_artifacts["artifact_id"].tolist()
@@ -170,21 +170,22 @@ def playground_view():
 
     df_artifacts = scan_artifacts(BASE_ARTIFACTS_DIR)
     if df_artifacts.empty:
-        st.warning("No hay artefactos disponibles.")
+        st.error("No se encontró un modelo entrenado. Por favor, ejecuta primero el benchmark localmente con `python scripts/run_full_benchmark.py` o descarga un modelo pre-entrenado.")
         return
         
     artifact_opts = df_artifacts["artifact_id"].tolist()
-    selected_id = st.selectbox("Seleccionar Artefacto", artifact_opts, key="play_sel")
+    selected_ids = st.multiselect("Seleccionar Agentes para Comparar", artifact_opts, default=[artifact_opts[0]] if artifact_opts else [], key="play_sel")
     
-    if not selected_id:
-        st.warning("Selecciona un artefacto para continuar.")
+    if not selected_ids:
+        st.warning("Selecciona al menos un artefacto para continuar.")
         return
         
-    selected_row = df_artifacts[df_artifacts["artifact_id"] == selected_id].iloc[0]
-    schema_ver = selected_row["schema_version"]
-    selected_path = selected_row["path"]
-
-    st.markdown(f"**Schema Version:** `{schema_ver}`")
+    # User features and context
+    st.markdown("### 🛠️ Configuración de Inferencia")
+    
+    # Use the schema version of the first selected agent to guide default JSON
+    first_row = df_artifacts[df_artifacts["artifact_id"] == selected_ids[0]].iloc[0]
+    schema_ver = first_row["schema_version"]
 
     # Generate default JSON based on schema
     if schema_ver == "bandit_v1":
@@ -204,22 +205,36 @@ def playground_view():
         st.error(f"JSON Inválido: {e}")
         is_valid_json = False
 
-    if st.button("Recomendar", disabled=not is_valid_json):
-        with st.spinner("Generando recomendación..."):
-            from deeprl_recsys.serving.runtime import ServingRuntime
-            runtime = ServingRuntime()
-            runtime.load(selected_path)
-            
-            candidates = [10, 25, 33, 41, 55]
-            preds = runtime.predict(context_data, candidates, k=5)
-            
-            dummy_results = pd.DataFrame({
-                "Item ID": [p["item_id"] for p in preds],
-                "Score": [p["score"] for p in preds]
-            })
-            
-            st.success("Recomendación lista")
-            st.table(dummy_results)
+    candidates = [10, 25, 33, 41, 55]
+
+    if st.button("🚀 Generar Recomendaciones Lado a Lado", disabled=not is_valid_json):
+        from deeprl_recsys.ui.utils import load_serving_runtime
+        
+        cols = st.columns(len(selected_ids))
+        
+        for i, art_id in enumerate(selected_ids):
+            with cols[i]:
+                st.subheader(f"🤖 {art_id}")
+                row = df_artifacts[df_artifacts["artifact_id"] == art_id].iloc[0]
+                art_path = row["path"]
+                
+                with st.spinner(f"Inferencia {art_id}..."):
+                    try:
+                        # Fixed shadowing by using art_path inside loop and cached loader
+                        runtime = load_serving_runtime(art_path)
+                        preds = runtime.predict(context_data, candidates, k=5)
+                        
+                        df_res = pd.DataFrame({
+                            "Item": [p["item_id"] for p in preds],
+                            "Score": [p["score"] for p in preds]
+                        })
+                        
+                        st.table(df_res)
+                        
+                        # Show some meta
+                        st.caption(f"Agent: {row.get('agent_name', 'N/A')}")
+                    except Exception as e:
+                        st.error(f"Error {art_id}: {e}")
 
 def main():
     st.sidebar.title("DeepRL-RecSys")

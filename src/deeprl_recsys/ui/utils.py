@@ -103,6 +103,18 @@ def load_train_log(artifact_path: str) -> pd.DataFrame:
         return pd.DataFrame()
     return _load_train_log_inner(path)
 
+@st.cache_resource
+def load_serving_runtime(artifact_path: str | Path):
+    """Loads and caches a ServingRuntime instance for a specific artifact.
+    
+    Using st.cache_resource ensures we only load each model once and 
+    reuse the instance across sessions, preventing memory overhead.
+    """
+    from deeprl_recsys.serving.runtime import ServingRuntime
+    runtime = ServingRuntime()
+    runtime.load(artifact_path)
+    return runtime
+
 def check_reports_extra() -> bool:
     """Check if weasyprint and reportlab are installed."""
     try:
