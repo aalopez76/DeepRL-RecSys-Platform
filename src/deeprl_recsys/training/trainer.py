@@ -47,6 +47,9 @@ class Trainer:
         metrics: dict[str, Any] = {"steps_completed": 0}
         logger.info("training_start", agent=self.agent.name, max_steps=self.max_steps)
 
+        for cb in self.callbacks:
+            cb.on_train_begin()
+
         for step in range(1, self.max_steps + 1):
             step_metrics = self.train_step(data, step)
             metrics.update(step_metrics)
@@ -59,8 +62,14 @@ class Trainer:
                 **{k: round(v, 6) if isinstance(v, float) else v for k, v in step_metrics.items()},
             )
 
+            for cb in self.callbacks:
+                cb.on_step_end(step, step_metrics)
+
             if step % self.eval_interval == 0:
                 logger.info("eval_checkpoint", step=step, metrics=step_metrics)
+
+        for cb in self.callbacks:
+            cb.on_train_end(metrics)
 
         logger.info("training_complete", total_steps=self.max_steps)
         return metrics
