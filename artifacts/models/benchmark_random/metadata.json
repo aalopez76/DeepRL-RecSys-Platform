@@ -1,0 +1,6 @@
+{
+  "agent_name": "random",
+  "schema_version": "bandit_v1",
+  "created_at": "2026-03-16T10:05:00Z",
+  "description": "Random Agent Benchmark"
+}
