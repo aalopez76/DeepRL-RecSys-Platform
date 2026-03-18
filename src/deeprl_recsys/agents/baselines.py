@@ -27,6 +27,15 @@ class RandomAgent(BaseAgent):
         indices = self._rng.permutation(len(candidates))
         return [candidates[i] for i in indices]
 
+    def get_action_probabilities(
+        self, observation: dict[str, Any], candidates: list[int]
+    ) -> dict[int, float]:
+        """Return uniform probabilities over candidates."""
+        if not candidates:
+            return {}
+        prob = 1.0 / len(candidates)
+        return {c: prob for c in candidates}
+
     def save(self, path: str) -> None:
         """Save seed to a JSON file."""
         p = Path(path)
@@ -54,6 +63,23 @@ class GreedyAgent(BaseAgent):
         """Return candidates sorted by precomputed scores (desc)."""
         return sorted(candidates, key=lambda x: self._scores.get(x, 0.0), reverse=True)
 
+    def get_action_probabilities(
+        self, observation: dict[str, Any], candidates: list[int]
+    ) -> dict[int, float]:
+        """Return probabilities based on precomputed scores if available (uniform fallback)."""
+        if not candidates:
+            return {}
+
+        found_scores = [self._scores.get(c, 0.0) for c in candidates]
+        total = sum(found_scores)
+
+        if total > 0:
+            return {c: self._scores.get(c, 0.0) / total for c in candidates}
+
+        # Fallback to uniform
+        prob = 1.0 / len(candidates)
+        return {c: prob for c in candidates}
+
     def save(self, path: str) -> None:
         p = Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
@@ -78,6 +104,17 @@ class TopKAgent(BaseAgent):
     def act(self, observation: dict[str, Any], candidates: list[int]) -> list[int]:
         """Return the first *k* candidates."""
         return candidates[: self._k]
+
+    def get_action_probabilities(
+        self, observation: dict[str, Any], candidates: list[int]
+    ) -> dict[int, float]:
+        """Return uniform probabilities over the first K items (0 for others)."""
+        if not candidates:
+            return {}
+        
+        top_k = candidates[: self._k]
+        prob = 1.0 / len(top_k)
+        return {c: (prob if c in top_k else 0.0) for c in candidates}
 
     def save(self, path: str) -> None:
         p = Path(path)

@@ -229,10 +229,18 @@ def playground_view():
                             "Score": [p["score"] for p in preds]
                         })
                         
-                        st.table(df_res)
+                        st.dataframe(
+                            df_res,
+                            column_config={
+                                "Item": st.column_config.NumberColumn("Item ID", format="%d"),
+                                "Score": st.column_config.NumberColumn("Score", format="%.4f")
+                            },
+                            hide_index=True,
+                            use_container_width=True
+                        )
                         
                         # Show some meta
-                        st.caption(f"Agent: {row.get('agent_name', 'N/A')}")
+                        st.caption(f"Agent: {row.get('agent_name', 'N/A')} | Candidates: {len(candidates)}")
                     except Exception as e:
                         st.error(f"Error {art_id}: {e}")
 

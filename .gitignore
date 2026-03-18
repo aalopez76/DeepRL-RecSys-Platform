@@ -28,7 +28,28 @@ artifacts/plots/
 data/obd/
 data/*.parquet
 data/*.csv
+# Extra safety ignores
+data/raw_large/
+References/
+pipeline_step*.log
 *.log
+*_dump.txt
+project_dump.txt
+root_dump.txt
+root_dump2.txt
+root_essential.txt
+scripts_extra.txt
+scripts_key.txt
+scripts_viz.txt
+tests_unit.txt
+tests_dump.txt
+eval_debug.txt
+data_debug.txt
+debug_files.txt
+inference_comparison.json
+test_results.txt
+test_error.log
+runtime.txt
 *.pkl
 *.h5
 

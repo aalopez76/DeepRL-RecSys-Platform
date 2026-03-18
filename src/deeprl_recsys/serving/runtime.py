@@ -106,10 +106,6 @@ class ServingRuntime:
     ) -> list[dict[str, Any]]:
         """Run inference — rank candidates and return top-k.
 
-        When no trained agent is loaded, falls back to returning the
-        first *k* candidates with a score of ``0.0`` (useful for
-        smoke-testing the serving endpoint).
-
         Args:
             context: Request context.
             candidates: Candidate item IDs.
@@ -121,22 +117,31 @@ class ServingRuntime:
         if not getattr(self, "agent", None):
             return [{"item_id": c, "score": 0.0} for c in candidates[:k]]
 
-        probs = self.agent.get_action_probabilities(context, candidates)
-        print(f"RAW PREDICT SCORES (ServingRuntime): {probs}")
+        raw_scores = self.agent.get_action_probabilities(context, candidates)
+        print(f"RAW PREDICT SCORES (ServingRuntime): {raw_scores}")
         
-        # Max-min scale / Normalization for visibility
-        max_p = max(probs.values()) if probs else 0.0
-        min_p = min(probs.values()) if probs else 0.0
+        # Ensure we have scores for all candidates
+        scores = {c: float(raw_scores.get(c, 0.0)) for c in candidates}
         
-        normalized: dict[int, float] = {}
-        if max_p > min_p:
-            for c, p in probs.items():
-                normalized[c] = (p - min_p) / (max_p - min_p)
-        elif max_p > 0:
-            for c, p in probs.items():
-                normalized[c] = p / max_p
-        else:
-            normalized = probs
-            
-        sorted_candidates = sorted(normalized.keys(), key=lambda c: normalized[c], reverse=True)[:k]
-        return [{"item_id": c, "score": float(normalized[c])} for c in sorted_candidates]
+        # Check if they are valid probabilities (sum to 1, range [0,1])
+        vals = list(scores.values())
+        total = sum(vals)
+        all_in_range = all(0.0 <= v <= 1.0 for v in vals)
+        
+        import math
+        is_prob = all_in_range and math.isclose(total, 1.0, rel_tol=1e-5)
+
+        if not is_prob and total > 0:
+            # If they don't sum to 1 but are positive, they might be logits or unnormalized scores
+            # Apply Softmax for better distribution if not already probabilities
+            import numpy as np
+            exp_scores = np.exp(vals - np.max(vals)) # stable softmax
+            probs = exp_scores / exp_scores.sum()
+            scores = {c: float(p) for c, p in zip(candidates, probs)}
+        elif not is_prob and total <= 0:
+            # Fallback for all zero or negative scores
+            prob = 1.0 / len(candidates) if candidates else 0.0
+            scores = {c: prob for c in candidates}
+
+        sorted_candidates = sorted(scores.keys(), key=lambda c: scores[c], reverse=True)[:k]
+        return [{"item_id": c, "score": scores[c]} for c in sorted_candidates]
