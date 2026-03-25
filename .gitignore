@@ -22,7 +22,7 @@ pip-delete-this-directory.txt
 .DS_Store
 
 # Project specific
-artifacts/models/
+artifacts/models/*
 artifacts/logs/
 artifacts/plots/
 data/obd/
@@ -58,6 +58,10 @@ runtime.txt
 !artifacts/logs/.gitkeep
 !artifacts/plots/.gitkeep
 !data/.gitkeep
+
+# Allow OBD sample for quick testing (< 1 MB)
+!data/sample/
+!data/sample/**
 
 # Expose sample and benchmark artifacts for demonstration
 !artifacts/models/dummy_model/
